@@ -35,11 +35,11 @@ It gives you one place to:
 The repo banner shows the full visual direction, but the screenshots below are from the actual interface.
 
 <p align="center">
-  <img src="./docs/screenshots/dashboard-hero-detail.png" alt="Herminator dashboard hero and operator controls" width="100%" />
+  <img src="./docs/screenshots/dashboard-full.png" alt="Full Herminator dashboard screenshot" width="100%" />
 </p>
 
 <p align="center">
-  <em>Main dashboard styling, hero copy, and operator controls.</em>
+  <em>Full authenticated dashboard view with the synthwave operator shell, metrics, control panels, and live navigation.</em>
 </p>
 
 ### Interface Details
@@ -50,6 +50,14 @@ The repo banner shows the full visual direction, but the screenshots below are f
 
 <p align="center">
   <em>Sidebar branding, navigation hierarchy, and the synthwave command-deck treatment.</em>
+</p>
+
+<p align="center">
+  <img src="./docs/screenshots/dashboard-hero-detail.png" alt="Herminator dashboard hero and operator controls" width="100%" />
+</p>
+
+<p align="center">
+  <em>Dashboard hero section, gateway controls, and the main operator framing language.</em>
 </p>
 
 ### Why Both Matter
@@ -123,6 +131,20 @@ This app reads live Hermes state from `HERMES_DIR`, so production use makes the 
 
 - on the same machine that runs Hermes
 - or inside a trusted internal network
+
+## Screenshot Workflow
+
+If you want to regenerate the main repo screenshot locally:
+
+```bash
+npm run capture:screenshot
+```
+
+This expects:
+
+- the dashboard to be running locally
+- a valid `.env.local`
+- Playwright and Chromium installed from this repo
 
 ## Project Structure
 

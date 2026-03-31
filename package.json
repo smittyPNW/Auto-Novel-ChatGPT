@@ -23,7 +23,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -H 0.0.0.0"
+    "start": "next start -H 0.0.0.0",
+    "capture:screenshot": "DASHBOARD_PASSWORD=$(grep '^DASHBOARD_PASSWORD=' .env.local | cut -d= -f2-) node ./scripts/capture-dashboard.mjs"
   },
   "dependencies": {
     "next": "^15.3.1",
@@ -32,11 +33,12 @@
     "yaml": "^2.7.1"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.4",
     "@types/node": "^22.15.3",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
-    "typescript": "^5.8.3",
-    "@tailwindcss/postcss": "^4.1.4",
-    "tailwindcss": "^4.1.4"
+    "playwright": "^1.58.2",
+    "tailwindcss": "^4.1.4",
+    "typescript": "^5.8.3"
   }
 }
