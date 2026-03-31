@@ -1,7 +1,25 @@
 {
   "name": "hermes-dashboard",
   "version": "1.0.0",
-  "private": true,
+  "description": "A synthwave operator dashboard for local Hermes installations.",
+  "license": "MIT",
+  "homepage": "https://github.com/smittyPNW/herminator-dashboard",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smittyPNW/herminator-dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/smittyPNW/herminator-dashboard/issues"
+  },
+  "keywords": [
+    "hermes",
+    "dashboard",
+    "nextjs",
+    "operator-console",
+    "agent-ui",
+    "telegram",
+    "cron"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",

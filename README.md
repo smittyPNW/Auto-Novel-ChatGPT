@@ -1,50 +1,81 @@
 # Herminator Dashboard
 
-A polished Next.js operator console for a local Hermes installation.
+<p align="center">
+  <img src="./docs/banner.svg" alt="Herminator Dashboard banner" width="100%" />
+</p>
 
-It provides a visual control room for:
+<p align="center">
+  A polished synthwave operator console for local Hermes installations.
+</p>
 
-- gateway health and restart controls
-- cron jobs and scheduler actions
-- profile switching
-- skill browsing, search, and install
-- session and log inspection
-- live chat routing through Hermes and local model fallbacks
+<p align="center">
+  <a href="https://github.com/smittyPNW/herminator-dashboard/blob/main/LICENSE">MIT License</a>
+  ·
+  <a href="https://github.com/smittyPNW/herminator-dashboard/issues">Issues</a>
+</p>
+
+## What It Is
+
+Herminator Dashboard is a Next.js control surface for running Hermes like an actual product instead of a loose collection of terminals and config files.
+
+It gives you one place to:
+
+- inspect gateway health
+- restart or stop the gateway
+- manage cron jobs
+- switch Hermes profiles
+- browse and install skills
+- inspect sessions and logs
+- chat through Hermes and local fallbacks
+
+## Screens
+
+### Repo Preview
+
+![Herminator dashboard preview](./docs/banner.svg)
+
+### Interface Details
+
+![Sidebar detail](./docs/screenshots/sidebar-detail.png)
+
+![Dashboard hero detail](./docs/screenshots/dashboard-hero-detail.png)
 
 ## Highlights
 
-- Distinct synthwave control-room UI rather than generic admin styling
-- Real Hermes-backed actions instead of mocked dashboard buttons
+- Distinct synthwave control-room art direction instead of generic admin UI
+- Real Hermes-backed actions instead of fake dashboard buttons
 - Mobile navigation and responsive operator shell
-- Native Hermes profile and skill integration
+- Profile, skills, sessions, logs, and cron workflows in one app
+- Public-repo-safe config layout with `.env.example` and ignored local secrets
+
+## Stack
+
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS 4
 
 ## Requirements
 
 - Node.js 18+
-- A working local Hermes install
-- Hermes CLI and Hermes files available at `HERMES_DIR`
+- A working local Hermes installation
+- Hermes CLI and Hermes runtime files accessible via `HERMES_DIR`
 
-## Setup
+## Quick Start
 
-1. Install dependencies:
+1. Install dependencies.
 
 ```bash
 npm install
 ```
 
-2. Create local env config:
+2. Create your local environment file.
 
 ```bash
 cp .env.example .env.local
 ```
 
-3. Update `.env.local`:
-
-- `DASHBOARD_PASSWORD`: the password used to access the dashboard
-- `AUTH_SECRET`: a long random string used to sign the auth cookie
-- `HERMES_DIR`: absolute path to the Hermes home directory you want to inspect
-
-Example:
+3. Update `.env.local`.
 
 ```env
 DASHBOARD_PASSWORD=your-dashboard-password
@@ -53,15 +84,13 @@ HERMES_DIR=/path/to/.hermes
 APP_ORIGIN=http://localhost:3000
 ```
 
-4. Start the app:
+4. Start the development server.
 
 ```bash
 npm run dev
 ```
 
-5. Open the dashboard:
-
-`http://localhost:3000`
+5. Open the app at [http://localhost:3000](http://localhost:3000).
 
 ## Production
 
@@ -72,28 +101,28 @@ npm run build
 npm run start
 ```
 
-The app reads live Hermes state from `HERMES_DIR`, so production use is best on the same machine that runs Hermes or on a trusted internal network.
+This app reads live Hermes state from `HERMES_DIR`, so production use makes the most sense:
 
-## Environment Notes
+- on the same machine that runs Hermes
+- or inside a trusted internal network
 
-- This project intentionally does not commit `.env.local`.
-- If you ever committed real secrets before adding `.gitignore`, rotate them before publishing.
-- Chat fallback behavior depends on the Hermes installation and any provider keys configured inside the Hermes `.env`.
-
-## Architecture
+## Project Structure
 
 - `src/lib/hermes.ts`
   Hermes filesystem and CLI integration layer
 - `src/app/api/*`
-  Server routes for gateway, auth, skills, chat, and admin actions
+  Server routes for auth, gateway, chat, skills, sessions, weather, and admin actions
 - `src/components/*`
-  Dashboard UI, controls, navigation, and operator panels
+  Navigation, operator panels, tables, controls, and shared UI
 - `src/app/*`
-  Main pages for dashboard, chat, cron, config, skills, logs, and sessions
+  Dashboard pages for chat, cron, config, skills, logs, and sessions
 
-## Publish Checklist
+## Environment Notes
 
-- Set your own `DASHBOARD_PASSWORD` and `AUTH_SECRET`
-- Confirm `HERMES_DIR` points to your own Hermes install
-- Review screenshots and branding
-- Add a license before open-sourcing if you want explicit reuse terms
+- `.env.local` is intentionally not committed
+- provider keys should stay in your local Hermes environment
+- if you previously exposed secrets anywhere, rotate them before reuse
+
+## License
+
+Released under the [MIT License](./LICENSE).

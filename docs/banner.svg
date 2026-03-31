@@ -1,0 +1,100 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#0B041A"/>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1076" cy="244" r="220" fill="url(#sun)"/>
+  <rect y="523" width="1600" height="377" fill="url(#floorGlow)"/>
+  <path d="M0 900V570H1600V900" fill="url(#gridFade)"/>
+  <g opacity="0.75" stroke="#39E6FF" stroke-width="2">
+    <path d="M0 900L800 570L1600 900"/>
+    <path d="M157 900L836 570"/>
+    <path d="M314 900L872 570"/>
+    <path d="M471 900L908 570"/>
+    <path d="M628 900L944 570"/>
+    <path d="M785 900L980 570"/>
+    <path d="M942 900L1016 570"/>
+    <path d="M1099 900L1052 570"/>
+    <path d="M1256 900L1088 570"/>
+    <path d="M1413 900L1124 570"/>
+    <path d="M0 640H1600"/>
+    <path d="M0 703H1600"/>
+    <path d="M0 766H1600"/>
+    <path d="M0 829H1600"/>
+  </g>
+  <g opacity="0.45" stroke="#FF4FD8" stroke-width="2">
+    <path d="M0 610H1600"/>
+    <path d="M0 673H1600"/>
+    <path d="M0 736H1600"/>
+    <path d="M0 799H1600"/>
+    <path d="M0 862H1600"/>
+  </g>
+  <g opacity="0.28" fill="#FF4FD8">
+    <path d="M1212 124L1258 240H1240L1198 144L1157 240H1138L1184 124H1212Z"/>
+    <path d="M1267 180L1364 142L1279 206L1368 254L1267 220V180Z"/>
+    <path d="M1130 180L1032 142L1117 206L1027 254L1130 220V180Z"/>
+  </g>
+  <g opacity="0.28" fill="#FF4FD8" transform="translate(328 124)">
+    <path d="M1212 124L1258 240H1240L1198 144L1157 240H1138L1184 124H1212Z"/>
+    <path d="M1267 180L1364 142L1279 206L1368 254L1267 220V180Z"/>
+    <path d="M1130 180L1032 142L1117 206L1027 254L1130 220V180Z"/>
+  </g>
+  <rect x="106" y="92" width="440" height="620" rx="34" fill="url(#panel)" stroke="rgba(57,230,255,0.24)"/>
+  <rect x="132" y="122" width="388" height="74" rx="22" fill="rgba(13,5,28,0.72)" stroke="rgba(255,79,216,0.18)"/>
+  <circle cx="176" cy="158" r="26" fill="url(#badge)"/>
+  <path d="M181 145V132L163 154H177V167L195 145H181Z" fill="#49124F"/>
+  <circle cx="204" cy="187" r="7" fill="#59F2A3"/>
+  <text x="228" y="154" fill="#FFF7FE" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Herminator</text>
+  <text x="228" y="186" fill="#CFA9DF" font-family="Arial, Helvetica, sans-serif" font-size="18" letter-spacing="5">OPERATOR DASHBOARD</text>
+  <text x="132" y="240" fill="#B184C9" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="6">NAVIGATION</text>
+  <rect x="132" y="272" width="388" height="64" rx="20" fill="rgba(57,230,255,0.10)" stroke="rgba(57,230,255,0.28)"/>
+  <text x="172" y="313" fill="#8CEEFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Dashboard</text>
+  <text x="172" y="382" fill="#F3CAEF" font-family="Arial, Helvetica, sans-serif" font-size="28">Chat</text>
+  <text x="172" y="447" fill="#F3CAEF" font-family="Arial, Helvetica, sans-serif" font-size="28">Cron Jobs</text>
+  <text x="172" y="512" fill="#F3CAEF" font-family="Arial, Helvetica, sans-serif" font-size="28">Skills</text>
+  <text x="172" y="577" fill="#F3CAEF" font-family="Arial, Helvetica, sans-serif" font-size="28">Config</text>
+  <rect x="132" y="584" width="388" height="100" rx="26" fill="rgba(20,8,36,0.70)" stroke="rgba(255,79,216,0.24)"/>
+  <text x="166" y="640" fill="#9DECFF" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" letter-spacing="4">HERMINATOR</text>
+  <text x="166" y="668" fill="#FFD1EE" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="5">COMMAND SURFACE</text>
+  <text x="650" y="156" fill="#FFCAEF" font-family="Arial, Helvetica, sans-serif" font-size="18" letter-spacing="7">CONTROL ROOM</text>
+  <text x="650" y="238" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="88" font-weight="800">Herminator Dashboard</text>
+  <text x="650" y="296" fill="#F6C8EA" font-family="Arial, Helvetica, sans-serif" font-size="28">A synthwave operator console for Hermes gateway health, cron jobs, skills, and sessions.</text>
+  <rect x="650" y="346" width="282" height="56" rx="28" fill="rgba(10,4,20,0.65)" stroke="rgba(89,242,163,0.34)"/>
+  <circle cx="686" cy="374" r="8" fill="#59F2A3"/>
+  <text x="708" y="384" fill="#BDFDD8" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Gateway Running</text>
+  <rect x="968" y="346" width="190" height="56" rx="28" fill="rgba(57,230,255,0.10)" stroke="rgba(57,230,255,0.34)"/>
+  <text x="1016" y="384" fill="#8CEEFF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Restart</text>
+  <rect x="1182" y="346" width="136" height="56" rx="28" fill="rgba(255,140,121,0.12)" stroke="rgba(255,140,121,0.34)"/>
+  <text x="1233" y="384" fill="#FFD0D0" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Stop</text>
+  <rect x="650" y="438" width="430" height="198" rx="28" fill="rgba(25,9,40,0.82)" stroke="rgba(57,230,255,0.18)"/>
+  <rect x="1110" y="438" width="384" height="198" rx="28" fill="rgba(25,9,40,0.82)" stroke="rgba(255,79,216,0.22)"/>
+  <rect x="650" y="664" width="844" height="156" rx="28" fill="rgba(18,8,33,0.82)" stroke="rgba(255,255,255,0.10)"/>
+  <text x="682" y="486" fill="#FFD5EF" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="6">PLATFORM STATUS</text>
+  <text x="1142" y="486" fill="#FFD5EF" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="6">ACTIVE CRON JOBS</text>
+  <text x="682" y="712" fill="#FFD5EF" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="6">SKILL SPECTRUM + RECENT SESSIONS</text>
+  <defs>
+    <linearGradient id="bg" x1="800" y1="0" x2="800" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#210638"/>
+      <stop offset="0.36" stop-color="#140726"/>
+      <stop offset="1" stop-color="#0B041A"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1076 244) rotate(90) scale(220)">
+      <stop stop-color="#FFB14A"/>
+      <stop offset="1" stop-color="#FF8A6A"/>
+    </radialGradient>
+    <linearGradient id="floorGlow" x1="800" y1="523" x2="800" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#39124F" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#0B041A" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gridFade" x1="800" y1="570" x2="800" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF4FD8" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#39E6FF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="326" y1="92" x2="326" y2="712" gradientUnits="userSpaceOnUse">
+      <stop stop-color="rgba(14,4,26,0.92)"/>
+      <stop offset="1" stop-color="rgba(10,3,23,0.82)"/>
+    </linearGradient>
+    <radialGradient id="badge" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(176 158) rotate(90) scale(26)">
+      <stop stop-color="#FFC56C"/>
+      <stop offset="1" stop-color="#FF7473"/>
+    </radialGradient>
+  </defs>
+</svg>
