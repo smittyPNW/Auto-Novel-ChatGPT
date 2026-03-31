@@ -28,17 +28,35 @@ It gives you one place to:
 - inspect sessions and logs
 - chat through Hermes and local fallbacks
 
-## Screens
+## Screenshots
 
-### Repo Preview
+### Visual Overview
 
-![Herminator dashboard preview](./docs/banner.svg)
+The repo banner shows the full visual direction, but the screenshots below are from the actual interface.
+
+<p align="center">
+  <img src="./docs/screenshots/dashboard-hero-detail.png" alt="Herminator dashboard hero and operator controls" width="100%" />
+</p>
+
+<p align="center">
+  <em>Main dashboard styling, hero copy, and operator controls.</em>
+</p>
 
 ### Interface Details
 
-![Sidebar detail](./docs/screenshots/sidebar-detail.png)
+<p align="center">
+  <img src="./docs/screenshots/sidebar-detail.png" alt="Herminator sidebar and navigation detail" width="360" />
+</p>
 
-![Dashboard hero detail](./docs/screenshots/dashboard-hero-detail.png)
+<p align="center">
+  <em>Sidebar branding, navigation hierarchy, and the synthwave command-deck treatment.</em>
+</p>
+
+### Why Both Matter
+
+- The banner gives the repo a strong first impression.
+- The screenshots prove the shipped UI actually looks like the product being described.
+- Together they make the project feel more credible to someone deciding whether to clone it.
 
 ## Highlights
 
