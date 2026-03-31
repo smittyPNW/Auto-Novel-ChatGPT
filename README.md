@@ -35,7 +35,7 @@ It gives you one place to:
 The repo banner shows the full visual direction, but the screenshots below are from the actual interface.
 
 <p align="center">
-  <img src="./docs/screenshots/dashboard-full.png" alt="Full Herminator dashboard screenshot" width="100%" />
+  <img src="./docs/screenshots/dashboard-main.png" alt="Full Herminator dashboard screenshot" width="100%" />
 </p>
 
 <p align="center">
