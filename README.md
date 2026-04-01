@@ -1,196 +1,163 @@
-# Herminator Dashboard
+# Auto-Novel-ChatGPT
 
-<p align="center">
-  <img src="./docs/banner.svg" alt="Herminator Dashboard" width="100%" />
-</p>
+**An autonomous novel-writing pipeline powered by GPT-4o and o1.**
 
-<p align="center">
-  <strong>A synthwave operator console for managing local Hermes AI agent installations.</strong>
-</p>
-
-<p align="center">
-  <a href="#quick-start">Quick Start</a> &nbsp;&middot;&nbsp;
-  <a href="#features">Features</a> &nbsp;&middot;&nbsp;
-  <a href="#screenshots">Screenshots</a> &nbsp;&middot;&nbsp;
-  <a href="#stack">Stack</a> &nbsp;&middot;&nbsp;
-  <a href="https://github.com/smittyPNW/Auto-Novel-ChatGPT/issues">Issues</a> &nbsp;&middot;&nbsp;
-  <a href="./LICENSE">MIT License</a>
-</p>
+Adapted from [NousResearch/autonovel](https://github.com/NousResearch/autonovel) — replaces the Anthropic/Claude backend with OpenAI's API, re-engineers every prompt for GPT-4o's strengths, and adds a dual-expert review system that knows when to stop revising.
 
 ---
 
-## What Is This
+## How It Works
 
-Herminator Dashboard is a full-featured web control panel for [Hermes](https://github.com/hermes-agent), an open-source AI agent framework. Instead of managing your agent through scattered terminals and config files, you get a single operator console with a retro synthwave aesthetic.
+The pipeline writes a complete 70-90k word novel in four phases:
 
-It reads live state directly from your local Hermes installation -- gateway health, cron jobs, skills, sessions, logs, and config -- and lets you control everything from one place.
+| Phase | What happens | Models used |
+|-------|-------------|-------------|
+| **0. Seed** | Generate or provide a high-concept premise | gpt-4o (temp 1.0) |
+| **1. Foundation** | World-building, characters, outline, voice, canon | gpt-4o (temp 0.75) |
+| **2. First Draft** | Sequential chapter writing with per-chapter evaluation | gpt-4o (temp 0.85) |
+| **3. Revision** | Adversarial edits, reader panel, dual-expert deep review | gpt-4o + o1 |
+| **4. Export** | Manuscript assembly | -- |
 
-## Features
-
-- **Gateway Controls** -- Start, stop, and restart the Hermes gateway with real-time platform connection status (Telegram, API server, etc.)
-- **Cron Job Manager** -- View, create, edit, enable/disable, and delete scheduled agent tasks
-- **Multi-Model Chat** -- Chat through the Hermes gateway, OpenRouter (Claude, GPT, Gemini, DeepSeek), or local Ollama models
-- **Skills Browser** -- Browse and manage installed Hermes skills organized by category
-- **Session Inspector** -- View session history with token counts, durations, and full conversation details
-- **Live Log Viewer** -- Tail gateway logs in real-time with level filtering
-- **Config Editor** -- Edit `config.yaml` and manage environment settings from the browser
-- **Weather Widget** -- Because every good command deck needs one
-- **Password Auth** -- Simple cookie-based session authentication
-- **Responsive Layout** -- Full desktop experience with collapsible mobile navigation
-
-## Screenshots
-
-<p align="center">
-  <img src="./docs/screenshots/dashboard-main.png" alt="Herminator Dashboard main view" width="100%" />
-</p>
-<p align="center"><em>Dashboard overview -- gateway status, cron jobs, skills, sessions, and platform health at a glance.</em></p>
-
-<p align="center">
-  <img src="./docs/screenshots/dashboard-hero-detail.png" alt="Dashboard hero and operator controls" width="100%" />
-</p>
-<p align="center"><em>Hero section with gateway controls and the operator framing.</em></p>
-
-<p align="center">
-  <img src="./docs/screenshots/sidebar-detail.png" alt="Sidebar navigation" width="360" />
-</p>
-<p align="center"><em>Sidebar with synthwave command-deck styling.</em></p>
-
-## Stack
-
-| Layer | Tech |
-|-------|------|
-| Framework | Next.js 15 (App Router) |
-| UI | React 19, Tailwind CSS 4 |
-| Language | TypeScript |
-| Backend | Next.js API routes reading Hermes filesystem + CLI |
-| Auth | Cookie-based session auth |
-| Chat Providers | Hermes gateway, OpenRouter API, Ollama |
-
-## Requirements
-
-- **Node.js 18+**
-- **A local Hermes installation** -- the dashboard reads from `~/.hermes` (or wherever `HERMES_DIR` points)
-- Hermes CLI and runtime files accessible on the same machine
+State is persisted to `state.json` so the pipeline can resume after interruption. Every accepted result is committed to git.
 
 ## Quick Start
 
-**1. Clone and install**
-
 ```bash
-git clone https://github.com/smittyPNW/Auto-Novel-ChatGPT.git herminator-dashboard
-cd herminator-dashboard
-npm install
+git clone https://github.com/smittyPNW/Auto-Novel-ChatGPT.git
+cd Auto-Novel-ChatGPT
+
+pip install -r requirements.txt
+cp .env.example .env
+# Edit .env — add your OPENAI_API_KEY or OPENAI_OAUTH_TOKEN
 ```
 
-**2. Configure environment**
+**Generate a seed and run the full pipeline:**
 
 ```bash
-cp .env.example .env.local
+python seed.py                          # generate 10 seed concepts
+python seed.py --pick 3                 # write seed 3 to seed.txt
+python run_pipeline.py                  # run full pipeline
 ```
 
-Edit `.env.local`:
+**Or run phases individually:**
 
+```bash
+# Phase 1 — Foundation
+python gen_world.py > world.md
+python gen_characters.py > characters.md
+
+# Phase 2 — Draft
+python draft_chapter.py --chapter 1
+python evaluate.py --mode chapter --chapter 1
+
+# Phase 3 — Revision
+python adversarial_edit.py --chapter 1
+python review.py --output review.md
+```
+
+**Resume after interruption:**
+
+```bash
+python run_pipeline.py --resume
+python run_pipeline.py --status         # check current state
+```
+
+## Architecture
+
+```
+seed.py               # Generate novel seed concepts (temp 1.0)
+gen_world.py          # Phase 1: Generate world.md from seed
+gen_characters.py     # Phase 1: Generate characters.md
+draft_chapter.py      # Phase 2: Write chapters (gpt-4o, temp 0.85)
+evaluate.py           # Phase 2/3: Score foundation, chapters, full novel
+adversarial_edit.py   # Phase 3: Find ~500 words to cut per chapter
+reader_panel.py       # Phase 3: Four-persona reader evaluation panel
+review.py             # Phase 3: Dual-expert deep review
+run_pipeline.py       # Master orchestrator — runs all phases
+llm_client.py         # Shared OpenAI client (OAuth + API key)
+requirements.txt
+.env.example
+```
+
+## The Dual-Expert Review System
+
+The core innovation of the revision phase. Two fully-committed AI personas analyse the manuscript independently:
+
+### Margaret Holloway — Literary Critic
+- **Background:** 25-year newspaper critic (The Atlantic, NYRB, The Guardian)
+- **Produces:** 600-900 word book review with star rating (1-5, half-star increments)
+- **Model:** o1 for full manuscripts, gpt-4o for chapters
+- **Temperature:** 0.5
+- **Evaluates:** opening strength, prose quality, pacing, world-building, character depth, emotional resonance
+
+### Dr. James Whitfield — Professor of Fiction
+- **Background:** MFA director and developmental editor (30 years, 60+ published novels)
+- **Produces:** 8-15 numbered craft notes with severity (MAJOR/MODERATE/MINOR) and fix type
+- **Model:** o1 for full manuscripts, gpt-4o for chapters
+- **Temperature:** 0.1
+- **Fix types:** STRUCTURAL, CHARACTER, PACING, PROSE, COMPRESSION, ADDITION, CONTINUITY
+
+### When Revision Stops
+
+The loop terminates when any of these conditions are met:
+
+- Rating >= 4.5 with zero MAJOR items
+- Rating >= 4.0 with >50% of items qualified/hedged
+- <= 2 total items remaining (noise floor)
+
+## Four-Persona Reader Panel
+
+Before the deep review, a panel of four simulated readers evaluates the manuscript from different angles:
+
+| Reader | Role | Reads for |
+|--------|------|-----------|
+| **Judith Crane** | Senior acquisitions editor, 25 years | Prose texture, voice consistency, sentence-level craft |
+| **Marcus Webb** | Genre reader, 3-4 novels/month for 20 years | Momentum, worldbuilding payoff, narrative satisfaction |
+| **Priya Nair** | Published literary fiction author and MFA professor | Architecture, economy, foreshadowing, scene function |
+| **Fourth reader** | General audience perspective | Engagement, clarity, emotional connection |
+
+## Model Mapping (Claude to GPT-4o)
+
+| Original (Claude) | This fork (OpenAI) | Rationale |
+|---|---|---|
+| claude-sonnet-4-6 | gpt-4o (temp 0.85) | Creative writing, world-building |
+| claude-opus-4-6 (reviewer) | o1 | Long-form reasoning, manuscript coherence |
+| claude-opus-4-6 (judge) | gpt-4o (temp 0.1-0.2) | Evaluation, JSON extraction |
+| Anthropic beta (1M ctx) | o1 (200k) + chunking | Context limit handling |
+
+## Authentication
+
+**API Key (simplest):**
 ```env
-DASHBOARD_PASSWORD=your-password
-AUTH_SECRET=a-long-random-string
-HERMES_DIR=/Users/yourname/.hermes
-APP_ORIGIN=http://localhost:3000
+OPENAI_API_KEY=sk-...
 ```
 
-**3. Start the dev server**
-
-```bash
-npm run dev
+**OAuth Token (for Herminator Dashboard integration):**
+```env
+OPENAI_OAUTH_TOKEN=<token from dashboard>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and log in with your dashboard password.
+Configure in `.env` (copy `.env.example`).
 
-## Production
+## Prompt Engineering Decisions
 
-```bash
-npm run build
-npm run start
-```
+1. **Committed personas** — Named professional identities ("Margaret Holloway, senior critic at The Atlantic") outperform abstract role descriptions with GPT-4o
+2. **Calibrated scoring anchors** — Explicit number-to-meaning mappings prevent GPT-4o's default score inflation
+3. **Anti-pattern lists in system prompts** — Banned patterns named up-front, not after-the-fact
+4. **Temperature by task** — Writer: 0.85 | World-builder: 0.75 | Critic: 0.5 | Judge: 0.2 | Editor: 0.3
+5. **o1 for deep review** — Extended reasoning chains track long-range narrative coherence better than gpt-4o
+6. **JSON schemas demonstrated, not described** — Complete example schemas in every JSON-output prompt
 
-The server binds to `0.0.0.0` so it's accessible on your local network. Since it reads live Hermes state from disk, run it on the same machine as Hermes or within a trusted network.
+## Context Window Notes
 
-## Project Structure
+- **gpt-4o:** 128k tokens (~91k words usable with response headroom)
+- **o1:** 200k tokens (~143k words usable)
+- Manuscripts exceeding limits are automatically summarised by `llm_client.summarise_manuscript()` before review
 
-```
-src/
-  app/
-    page.tsx                # Dashboard home
-    chat/                   # Multi-model chat interface
-    config/                 # Config editor
-    cron/                   # Cron job management
-    logs/                   # Live log viewer
-    sessions/               # Session browser + detail views
-    skills/                 # Skills browser
-    login/                  # Auth page
-    api/
-      admin/                # Gateway restart / stop
-      auth/                 # Session auth
-      chat/                 # Chat routing (gateway / OpenRouter / Ollama)
-      gateway/              # Gateway state
-      sessions/             # Session data
-      skills/               # Skill listing + management
-      weather/              # Weather widget
-  components/               # Sidebar, cards, tables, controls, status badges
-  lib/
-    hermes.ts               # Hermes filesystem + CLI integration
-    auth.ts                 # Auth utilities
-  middleware.ts             # Route protection
-scripts/
-  capture-dashboard.mjs     # Playwright screenshot automation
-docs/
-  banner.svg                # Repo banner art
-  screenshots/              # UI screenshots
-```
+## Credits
 
-## How It Talks to Hermes
-
-The dashboard does not use a Hermes HTTP API. It reads directly from the Hermes home directory:
-
-| File | Purpose |
-|------|---------|
-| `gateway_state.json` | Gateway health and platform connections |
-| `gateway.pid` | Running gateway process info |
-| `cron/jobs.json` | Scheduled task definitions and run history |
-| `sessions/` | Session files and conversation history |
-| `skills/` | Installed skill manifests by category |
-| `config.yaml` | Agent configuration |
-| `.env` | API keys (used for OpenRouter chat fallback) |
-
-For actions like restarting the gateway or managing cron jobs, it shells out to the Hermes CLI (`hermes_cli.main`) through the Python venv.
-
-## Chat Routing
-
-The chat interface supports multiple backends with automatic fallback:
-
-1. **Hermes Gateway** (default) -- routes through the local agent on port 8642
-2. **OpenRouter** -- Claude Sonnet 4, Claude Haiku 4, Gemini 2.5 Flash/Pro, DeepSeek V3
-3. **Ollama** -- any locally installed model (auto-detected)
-
-If the gateway is down, chat falls back to OpenRouter using the API key from the Hermes `.env` file.
-
-## Screenshot Automation
-
-Regenerate repo screenshots with Playwright:
-
-```bash
-npm run capture:screenshot
-```
-
-Requires the dashboard to be running locally with valid auth credentials.
-
-## Security
-
-- `.env.local` is gitignored -- secrets never leave your machine
-- Dashboard password is set via environment variable
-- API keys are read from the Hermes `.env` at runtime, not stored in this project
-- Designed for local and trusted-network use, not public internet exposure
-- If you previously exposed any keys, rotate them before reuse
+Based on [NousResearch/autonovel](https://github.com/NousResearch/autonovel). Adapted for OpenAI models with re-engineered prompts, the dual-expert review system, reader panel, seed generator, and full pipeline orchestrator.
 
 ## License
 
-Released under the [MIT License](./LICENSE).
+[MIT](./LICENSE)
