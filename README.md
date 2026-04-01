@@ -1,5 +1,9 @@
 # Auto-Novel-ChatGPT
 
+<p align="center">
+  <img src="./docs/autonovel-banner.png" alt="AutoNovel ChatGPT" width="100%" />
+</p>
+
 **An autonomous novel-writing pipeline powered by GPT-4o and o1.**
 
 Adapted from [NousResearch/autonovel](https://github.com/NousResearch/autonovel) — replaces the Anthropic/Claude backend with OpenAI's API, re-engineers every prompt for GPT-4o's strengths, and adds a dual-expert review system that knows when to stop revising.
